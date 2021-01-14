@@ -1,0 +1,17 @@
+name: evkk
+channels:
+  - conda-forge
+  - stanfordnlp
+  - defaults
+dependencies:
+  - numpy
+  - pandas
+  - stanza
+  - pip
+  - django
+  - python=3.7
+  - swig=3
+  - pip:
+      - jamspell==0.0.12
+      - typing_extensions
+      - djangorestframework
