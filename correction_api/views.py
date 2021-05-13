@@ -1,3 +1,5 @@
+from typing import Optional
+
 from django.shortcuts import render
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
@@ -9,7 +11,7 @@ from correction_api.serializer import TextCorrectionSerializer
 from jamspell_corrector import JamspellCorrector
 
 
-corrector = None
+corrector: Optional[JamspellCorrector] = None
 
 
 class TextCorrectionView(APIView):
@@ -22,9 +24,7 @@ class TextCorrectionView(APIView):
         global corrector
         if corrector is None:
             corrector = JamspellCorrector(
-                model_path="models/estonski.bin",
-                correction_mapping_path="texts/training_texts/word_mapping.csv",
-                stanza_model_path="/home/mkollo/PycharmProjects/texta-rest/data/models/stanza"
+                correction_mapping_path="texts/dependencies/word_mapping.csv",
             )
         logging.debug("Finished loading the Jamspell Corrector!")
 
