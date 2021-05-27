@@ -23,7 +23,7 @@ Source: https://habr.com/en/post/346618/ (In Russian)
 Jamspell is a heavily modified version of the Symspell algorithm, implemented by the use of 3-grams for language modeling, [Kneser–Ney smoothing](https://u.cs.biu.ac.il/~yogo/courses/mt2013/papers/chen-goodman-99.pdf) to fix the issue of a never-before met 3-gram creating 0 candidates and 0 probability, [Perfect Hashing](https://en.wikipedia.org/wiki/Perfect_hash_function) to keep the impact on RAM into useable levels and a [Bloom Filter](https://habr.com/en/post/112069/) to further reduce the memory inprint the model has.
 
 # Estonian Jamspell
-This application downloads a Jamspell model trained using a subset of the [Estonian National Corpus 2019](https://metashare.ut.ee/repository/browse/estonian-national-corpus-2019/cd9633fab22e11eaa6e4fa163e9d4547b71a2df64d1f43f1ac26dbd8508ea951/). Sadly, the entirety of the national corpus ended up being too memory heavy for my machine so I was forced to limit it only to a subset of 126109243 words (calculated using a Linux ```wc -w``` command) which is only 8% of the corpus' word size. 
+This application downloads a Jamspell model trained using a subset of the [Estonian National Corpus 2019](https://metashare.ut.ee/repository/browse/estonian-national-corpus-2019/cd9633fab22e11eaa6e4fa163e9d4547b71a2df64d1f43f1ac26dbd8508ea951/) (etnc19_balanced_corpus.prevert). Sadly, the entirety of the national corpus ended up being too memory heavy for my machine so I was forced to limit it only to a subset of 126109243 words (calculated using a Linux ```wc -w``` command) which is only 8% of the corpus' word size. 
 
 # Docker
 
