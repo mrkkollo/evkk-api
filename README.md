@@ -10,15 +10,16 @@
 
 # Usage
 
+1. If using a custom JamSpell model, create a "models directory", send the model binary into that folder and change the "model_name" value inside conf.json. If this is not done, it will download the model from the web in case it is not already inside the folder. Said model is put into an automatically created "models" folder.
 1. Access the environment with ```conda activate evkk```
 1. Run the application with ```python manage.py runserver```. Please note that this is just a plain development server
    and is not appropriate for a full production setting.
 1. Access http://localhost:8000 to view the API, from there you can use the visual Browsable API to make request.
 
-NB! Please not that on first requests, it might take a while for the models to be loaded into memory in the global
+NB! Please note that on first requests, it might take a while for the models to be loaded into memory in the global
 namespace. This might take up to a few minutes, additional requests will be processed much faster.
 
-NB! Since the model is loaded into memory inside the global namespace, any web server configurations that create
+NB! Since the model is  loaded into memory inside the global namespace, any web server configurations that create
 multiple workers should take into account increased memory usage.
 
 # Jamspell
