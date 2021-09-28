@@ -20,15 +20,20 @@ DEFAULT_JAMSPELL_MODEL_PATH = "models/jamspell/jamspell_estonian_2021_05_13.bin"
 
 class JamspellCorrector:
 
-
-    def __init__(self, jamspell_model_path: str = DEFAULT_JAMSPELL_MODEL_PATH, correction_mapping_path: str = DEFAULT_MAPPING_PATH, stanza_model_dir_path=DEFAULT_STANZA_DIR_PATH, use_gpu=False):
+    def __init__(
+            self,
+            jamspell_model_path: str = DEFAULT_JAMSPELL_MODEL_PATH,
+            correction_mapping_path: str = DEFAULT_MAPPING_PATH,
+            stanza_model_dir_path=DEFAULT_STANZA_DIR_PATH,
+            use_gpu=False
+    ):
         """
         :param jamspell_model_path: Relative or absolute path to the Jamspell binary model file.
         :param correction_mapping_path: Relative or absolute path to the CSV file which conducts word replacements.
         :param stanza_model_dir_path: Relative or absolute path to the directory IN WHICH the Estonian Stanza models reside in.
         :param use_gpu: Whether to use the GPU's CUDA support for Stanza operations.
         """
-        self.nlp = None
+        self.stanza_pipeline = None
         self.corrector = jamspell.TSpellCorrector()
         self.ensure_model_folders()
         self.word_mapping = self.load_mapper_resources(correction_mapping_path)
@@ -68,7 +73,7 @@ class JamspellCorrector:
 
     def __load_stanza_pipeline(self, model_folder: str, use_gpu: bool):
         logging.debug("Starting loading the the Stanza models into the Pipeline!")
-        self.nlp = stanza.Pipeline(lang='et', processors='tokenize,pos,lemma', dir=model_folder, use_gpu=use_gpu)
+        self.stanza_pipeline = stanza.Pipeline(lang='et', processors='tokenize,pos,lemma', dir=model_folder, use_gpu=use_gpu)
         logging.debug("Finished loading the stanza models!")
 
 
@@ -133,7 +138,9 @@ class JamspellCorrector:
         logging.debug("Replacing the words in the text by the defined mappings from the file as a preprocessing step!")
         processed_text = original_text
         for mistake, correct in self.word_mapping:
-            processed_text = processed_text.replace(mistake, correct)
+            # Replace words only if they are a separate "token"
+            # This can't really be named tokenization.
+            processed_text = processed_text.replace(f" {mistake} ", f" {correct} ")
         logging.debug("Finished replacing the words!")
         return processed_text
 
@@ -158,7 +165,7 @@ class JamspellCorrector:
         if correct_text:
             text = self.correct_text(text, use_preprocessing).correction
 
-        stanza_analysis = self.nlp(text)
+        stanza_analysis = self.stanza_pipeline(text)
         for sentence in stanza_analysis.sentences:
             for word in sentence.words:
                 tokens.append(word.lemma)

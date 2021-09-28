@@ -7,6 +7,10 @@
 1. Create a directory called "models" inside the root of this repository.
 1. If you posess a different model you wish to use, add the model inside the models/ directory and change the value "
    model_name" inside conf.json. Otherwise, without the existence of a preset model, one is downloaded for the user.
+1. Users can also directly edit the file with the pre-made token replacements under texts/dependencies/word_mapping.
+
+
+
 
 # Usage
 
