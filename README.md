@@ -16,6 +16,8 @@
 
 1. If using a custom JamSpell model, create a "models directory", send the model binary into that folder and change the "model_name" value inside conf.json. If this is not done, it will download the model from the web in case it is not already inside the folder. Said model is put into an automatically created "models" folder.
 1. Access the environment with ```conda activate evkk```
+1. Inside the environment, run ```python manage.py migrate```, this will populate a simple sqlite database
+   with the DB schema.
 1. Run the application with ```python manage.py runserver```. Please note that this is just a plain development server
    and is not appropriate for a full production setting.
 1. Access http://localhost:8000 to view the API, from there you can use the visual Browsable API to make request.

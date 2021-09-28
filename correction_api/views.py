@@ -1,8 +1,9 @@
 import logging
+from typing import Optional
+
+from rest_framework.generics import GenericAPIView
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from typing import Optional
 
 # Create your views here.
 from correction_api.serializer import TextCorrectionSerializer
@@ -12,8 +13,8 @@ from jamspell_corrector import JamspellCorrector
 corrector: Optional[JamspellCorrector] = None
 
 
-class TextCorrectionView(APIView):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+class TextCorrectionView(GenericAPIView):
+    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     serializer_class = TextCorrectionSerializer
 
 
