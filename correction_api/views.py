@@ -14,7 +14,7 @@ corrector: Optional[JamspellCorrector] = None
 
 
 class TextCorrectionView(GenericAPIView):
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     serializer_class = TextCorrectionSerializer
 
 
